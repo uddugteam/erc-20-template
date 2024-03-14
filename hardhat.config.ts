@@ -25,7 +25,7 @@ const config: HardhatUserConfig = {
     customNetwork: {
       url: (process.env.CUSTOM_RPC as string) ?? "",
       accounts: [process.env.PRIVATE_KEY as string],
-      chainId: 999999,
+      chainId: 0,
     },
   },
   etherscan: {
