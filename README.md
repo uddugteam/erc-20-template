@@ -130,5 +130,5 @@ yarn hardhat getOwner
 - **Access**: Only owner
 
 ```bash
-yarn hardhat transferOwnership
+yarn hardhat transferOwnership --address address
 ```
