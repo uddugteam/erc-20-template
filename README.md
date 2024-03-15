@@ -25,7 +25,7 @@ For all tasks use `--network` param, eg.:
 ```bash
 yarn hardhat DeployToken --network sepolia
 ```
-or cofigure this param in the [hardhat config](hardhat.config.ts):
+or configure this param in the [hardhat config](hardhat.config.ts):
 ```typescript
 const config: HardhatUserConfig = {
   defaultNetwork: "sepolia",
@@ -53,7 +53,7 @@ yarn hardhat VerifyToken
 - **Description**: Get the total number of minted tokens.
 - **Return**: `bigint`
 - **Access**: Public
-Run:
+
 ```bash
 yarn hardhat getTotalSupply
 ```
@@ -64,7 +64,7 @@ yarn hardhat getTotalSupply
   - `address` - address to get balance of.
 - **Return**: `bigint`
 - **Access**: Public
-Run:
+
 ```bash
 yarn hardhat getBalanceOf --address address
 ```
@@ -75,7 +75,7 @@ yarn hardhat getBalanceOf --address address
   - `to` - address to mint tokens to
   - `amount` - number of tokens to mint. Note: will be converted according to token.decimals()
 - **Access**: Only owner
-Run:
+
 ```bash
 yarn hardhat mint --to to --amount amount
 ```
@@ -86,7 +86,7 @@ yarn hardhat mint --to to --amount amount
   - `spender` - address to approve tokens to
   - `amount` - number of tokens to approve. Note: will be converted according to token.decimals()
 - **Access**: Public
-Run:
+
 ```bash
 yarn hardhat approve --spender spender --amount amount
 ```
@@ -97,7 +97,7 @@ yarn hardhat approve --spender spender --amount amount
   - `to` - address to transfer tokens to
   - `amount` - number of tokens to transfer. Note: will be converted according to token.decimals()
 - **Access**: Public
-Run:
+
 ```bash
 yarn hardhat transfer --to to --amount amount
 ```
@@ -109,7 +109,7 @@ yarn hardhat transfer --to to --amount amount
   - `to` - address to transfer tokens to
   - `amount` - number of tokens to transfer. Note: will be converted according to token.decimals()
 - **Access**: Public
-Run:
+
 ```bash
 yarn hardhat transferFrom --from from --to to --amount amount
 ```
@@ -118,7 +118,7 @@ yarn hardhat transferFrom --from from --to to --amount amount
 - **Description**: Get token contract owner.
 - **Return**: `address`
 - **Access**: Public
-Run:
+
 ```bash
 yarn hardhat getOwner
 ```
@@ -128,7 +128,7 @@ yarn hardhat getOwner
 - **Params**:
   - `address` - address to transfer ownership to
 - **Access**: Only owner
-Run:
+
 ```bash
 yarn hardhat transferOwnership
 ```
