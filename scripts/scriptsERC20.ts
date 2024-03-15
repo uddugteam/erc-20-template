@@ -8,7 +8,8 @@ export async function getTotalSupply(hre: HardhatRuntimeEnvironment) {
   const contract = await getTokenContract(hre);
 
   try {
-    return await contract.totalSupply();
+    const totalSupply = await contract.totalSupply();
+    return hre.ethers.formatUnits(totalSupply, await contract.decimals());
   } catch (e) {
     const err = e as Error;
     throw new Error(`Get total supply error: ${err.message}`);
@@ -23,7 +24,8 @@ export async function getBalanceOf(hre: HardhatRuntimeEnvironment, address: stri
   const contract = await getTokenContract(hre);
 
   try {
-    return await contract.balanceOf(address);
+    const balance = await contract.balanceOf(address);
+    return hre.ethers.formatUnits(balance, await contract.decimals());
   } catch (e) {
     const err = e as Error;
     throw new Error(`Get balance error: ${err.message}`);
@@ -38,19 +40,18 @@ export async function mint(hre: HardhatRuntimeEnvironment, to: string, amount: s
   if (amount.length == 0) {
     throw new Error("Invalid amount, execution reverted");
   }
+  const contract = await getTokenContract(hre);
 
-  let etherAmount: bigint;
+  let parsedAmount: bigint;
   try {
-    etherAmount = hre.ethers.parseEther(amount);
+    parsedAmount = hre.ethers.parseUnits(amount, await contract.decimals());
   } catch {
     throw new Error("Invalid amount, execution reverted");
   }
 
-  const contract = await getTokenContract(hre);
-
   let tx;
   try {
-    tx = await contract.mint(to, etherAmount);
+    tx = await contract.mint(to, parsedAmount);
   } catch (e) {
     const err = e as Error;
     throw new Error(`Mint error: ${err.message}`);
@@ -66,21 +67,22 @@ export async function transfer(hre: HardhatRuntimeEnvironment, to: string, amoun
     throw new Error("Invalid amount, execution reverted");
   }
 
-  let etherAmount: bigint;
+  if (!hre.ethers.isAddress(to)) {
+    throw new Error("Invalid address of `to`, execution reverted");
+  }
+
+  const contract = await getTokenContract(hre);
+
+  let parsedAmount: bigint;
   try {
-    etherAmount = hre.ethers.parseEther(amount);
+    parsedAmount = hre.ethers.parseUnits(amount, await contract.decimals());
   } catch {
     throw new Error("Invalid amount, execution reverted");
   }
 
-  if (!hre.ethers.isAddress(to)) {
-    throw new Error("Invalid address of `to`, execution reverted");
-  }
-  const contract = await getTokenContract(hre);
-
   let tx;
   try {
-    tx = await contract.transfer(to, etherAmount);
+    tx = await contract.transfer(to, parsedAmount);
   } catch (e) {
     const err = e as Error;
     throw new Error(`Transfer error: ${err.message}`);
@@ -95,21 +97,22 @@ export async function approve(hre: HardhatRuntimeEnvironment, to: string, amount
     throw new Error("Invalid amount, execution reverted");
   }
 
-  let etherAmount: bigint;
+  if (!hre.ethers.isAddress(to)) {
+    throw new Error("Invalid address of `to`, execution reverted");
+  }
+
+  const contract = await getTokenContract(hre);
+
+  let parsedAmount: bigint;
   try {
-    etherAmount = hre.ethers.parseEther(amount);
+    parsedAmount = hre.ethers.parseUnits(amount, await contract.decimals());
   } catch {
     throw new Error("Invalid amount, execution reverted");
   }
 
-  if (!hre.ethers.isAddress(to)) {
-    throw new Error("Invalid address of `to`, execution reverted");
-  }
-  const contract = await getTokenContract(hre);
-
   let tx;
   try {
-    tx = await contract.approve(to, etherAmount);
+    tx = await contract.approve(to, parsedAmount);
   } catch (e) {
     const err = e as Error;
     throw new Error(`Approve error: ${err.message}`);
@@ -125,25 +128,26 @@ export async function transferFrom(hre: HardhatRuntimeEnvironment, from: string,
     throw new Error("Invalid amount, execution reverted");
   }
 
-  let etherAmount: bigint;
-  try {
-    etherAmount = hre.ethers.parseEther(amount);
-  } catch {
-    throw new Error("Invalid amount, execution reverted");
-  }
-
   if (!hre.ethers.isAddress(from)) {
-    throw new Error("Invalid address of `to`, execution reverted");
+    throw new Error("Invalid address of `from`, execution reverted");
   }
 
   if (!hre.ethers.isAddress(to)) {
     throw new Error("Invalid address of `to`, execution reverted");
   }
+
   const contract = await getTokenContract(hre);
+
+  let parsedAmount: bigint;
+  try {
+    parsedAmount = hre.ethers.parseUnits(amount, await contract.decimals());
+  } catch {
+    throw new Error("Invalid amount, execution reverted");
+  }
 
   let tx;
   try {
-    tx = await contract.transferFrom(from, to, etherAmount);
+    tx = await contract.transferFrom(from, to, parsedAmount);
   } catch (e) {
     const err = e as Error;
     throw new Error(`TransferFrom error: ${err.message}`);
