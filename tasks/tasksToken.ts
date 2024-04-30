@@ -78,3 +78,9 @@ task("transferOwnership", "Transfer ownership to the new address")
   .setAction(async (args, hre) => {
     await transferOwnership(hre, args.address);
   });
+
+task("Balance", "Get address native balance").setAction(async (args, hre) => {
+  const [user] = await hre.ethers.getSigners();
+  const balance = await hre.ethers.provider.getBalance(user);
+  console.log(`${user.address} balance: ${balance}`);
+});

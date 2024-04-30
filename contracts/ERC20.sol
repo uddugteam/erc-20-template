@@ -17,8 +17,7 @@ contract Token is ERC20, Ownable {
      * @dev Creates an `amount` of tokens and assigns them to `to` address, by transferring it from address(0).
      * Can only be called by the current owner.
      *
-     * @param amount - amount of tokens to be minted
-     * @param to - address to mint tokens to
+     * Emits a {Transfer} event with `from` set to the zero address.
      */
     function mint(address to, uint256 amount) external onlyOwner {
         _mint(to, amount);
