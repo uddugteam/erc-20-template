@@ -11,7 +11,7 @@ contract Token is ERC20, Ownable {
      * NOTE: {name} and {symbol} values are immutable: they can only be set once during
      * construction.
      */
-    constructor(string memory name_, string memory symbol_) ERC20(name_, symbol_) Ownable(_msgSender()) {}
+    constructor(string memory name_, string memory symbol_) ERC20(name_, symbol_) Ownable(msg.sender) {}
 
     /**
      * @dev Creates an `amount` of tokens and assigns them to `to` address, by transferring it from address(0).

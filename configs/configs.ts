@@ -12,3 +12,11 @@ export const ERC20Symbol = process.env.TOKEN_SYMBOL ?? "TKN";
 
 export const addressesDir = path.join(__dirname, "../contracts/addresses");
 export const abisDir = path.join(__dirname, "../contracts/abis");
+
+export const network = {
+  rpc: process.env.RPC ?? "",
+  apiUrl: process.env.API_URL ?? "",
+  browserUrl: process.env.BROWSER_URL ?? "",
+  name: process.env.NETWORK_NAME ?? "",
+  chainId: parseInt(process.env.CHAIN_ID ?? "0"),
+};
