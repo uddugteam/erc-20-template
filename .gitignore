@@ -1,5 +1,20 @@
 node_modules
-artifacts
-typechain-types
-cache
 .env
+.idea
+
+
+# Hardhat files
+/cache
+/artifacts
+
+# TypeChain files
+/typechain
+/typechain-types
+
+# solidity-coverage files
+/coverage
+/coverage.json
+
+# local files
+localhost.json
+work.ts
