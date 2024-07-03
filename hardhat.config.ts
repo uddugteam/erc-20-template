@@ -8,6 +8,12 @@ const config: HardhatUserConfig = {
   defaultNetwork: network.name,
   solidity: {
     version: "0.8.21",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
   },
   mocha: {
     timeout: 200000,
@@ -23,6 +29,11 @@ const config: HardhatUserConfig = {
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : undefined,
       chainId: 11155111,
     },
+    chiado: {
+      url: process.env.CHIADO_RPC ?? "",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : undefined,
+      chainId: 10200,
+    },
     [network.name]: {
       url: network.rpc,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : undefined,
@@ -33,6 +44,7 @@ const config: HardhatUserConfig = {
     apiKey: {
       mainnet: process.env.ETHERSCAN_API_KEY ?? "",
       sepolia: process.env.ETHERSCAN_API_KEY ?? "",
+      chiado: process.env.ETHERSCAN_API_KEY ?? "",
       [network.name]: process.env.ETHERSCAN_API_KEY ?? "",
     },
     customChains: [
